@@ -5,6 +5,7 @@ export type Tweet = {
   content: string;
   image?: TweetImage; // optionnel
   createdAt: string;
+  parentId?: string; // id du tweet auquel le tweet courant répond.
 }
 
 export type TweetImage = {

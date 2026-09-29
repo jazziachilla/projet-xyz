@@ -1,28 +1,70 @@
+import { useState } from 'react';
 import type { Tweet } from '../types/Tweet';
+import { Link } from 'react-router-dom'; 
 
-type TweetPreviewProps = {
-  tweet: Tweet;
-};
+export function TweetPreview(props: { tweet: Tweet }) {
+  const t = props.tweet;``
 
-export const TweetPreview = ({ tweet }: TweetPreviewProps) => {
+  //date
+  const formatDate = new Date(t.createdAt).toLocaleDateString('fr-FR', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+    });
+
+  //etat : ouvert/fermé
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  //180 caractères
+  const limite = 180;
+  const estTropLong = t.content.length > limite;
+
+  //texte qu'on doit afficher sur l'écran
+  const texteAAfficher = isExpanded || !estTropLong 
+    ? t.content 
+    : t.content.slice(0, limite) + '...'; //decoupe le texte + ...
+
   return (
-    <article className="tweet-preview">
-      <div className="tweet-header">
-        <span className="author-name">{tweet.authorName}</span>
-        <span className="author-handle">@{tweet.authorHandle}</span>
-        <span className="tweet-date">{new Date(tweet.createdAt).toLocaleDateString()}</span>
-      </div>
+    <div style={{ border: '1px solid #ccc', padding: '15px', margin: '10px 0', borderRadius: '8px' }}>
+      <h3>{t.authorName} (@{t.authorHandle})</h3>
       
-      {/* Affichage conditionnel de l'image (Étape 3 du TD) */}
-      {tweet.image && (
-        <img 
-          src={tweet.image.url} 
-          alt={tweet.image.alt} 
-          className="tweet-image"
-        />
+      {/* on affiche le texte du tweet */}
+      <p>{texteAAfficher}</p>
+
+      {/* bouton voir plus/ voir moins  */}
+      {estTropLong && ( //si le texte trop est trop long ca s'affiche 
+        <button 
+          //inverse la derniere valeur de l'interrupteur
+          onClick={() => setIsExpanded((ancienneValeur) => !ancienneValeur)}
+          style={{ background: 'none', border: 'none', color: 'blue', cursor: 'pointer', padding: 0, marginBottom: '10px' }}
+        >
+          {/* si ouvert, on affiche voir moins, sinon voir plus */}
+          {isExpanded ? 'Voir moins' : 'Voir plus'}
+        </button>
+      )}
+      
+      {/* affichage de l'image, ajout du link 02.4 */}
+      {t.image && (
+       <Link to={`/tweets/${t.id}`}>
+          <img 
+            src={t.image.url} 
+            alt={t.image.alt} 
+            style={{ maxWidth: '100%', borderRadius: '6px', marginTop: '10px', display: 'block' }} 
+          />
+        </Link>
       )}
 
-      <p className="tweet-content">{tweet.content}</p>
-    </article>
+      <p style={{ fontSize: '0.85em', color: '#666' }}>{formatDate}</p>
+
+      {/* lien vers la page de détail */}
+      <Link 
+        to={`/tweets/${t.id}`} 
+        style={{ color: '#1d9bf0', textDecoration: 'none', fontSize: '0.9em', fontWeight: 'bold', display: 'block' }}
+      >
+        Voir la discussion
+      </Link>
+    
+    </div>
+    
   );
-};
+}

@@ -10,7 +10,8 @@ export const initialTweets: Array<Tweet> = [
       url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Ada_Lovelace_portrait.jpg/500px-Ada_Lovelace_portrait.jpg",
       alt: "Portrait d'Ada Lovelace"
     },
-    createdAt: "2026-09-01T11:12:00.000Z"
+    createdAt: "2026-09-01T11:12:00.00Z",
+    parentId:'9'
   },
   {
     id: "2",
@@ -74,6 +75,7 @@ export const initialTweets: Array<Tweet> = [
     authorName: "Guido van Rossum",
     authorHandle: "gvanrossum",
     content: "La lisibilité du code compte énormément. Un code est lu bien plus souvent qu'il n'est écrit.",
-    createdAt: "2026-07-01T15:20:00.000Z"
+    createdAt: "2026-07-01T15:20:00.000Z",
+    parentId:'7'
   }
 ];
