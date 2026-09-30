@@ -2,9 +2,9 @@ import { useState } from 'react';
 import type { Tweet } from '../types/Tweet';
 import { Link } from 'react-router-dom'; 
 
-export function TweetPreview(props: { tweet: Tweet }) {
+export function TweetPreview(props: { tweet: Tweet; linkToDetail?: boolean }) {
   const t = props.tweet;``
-
+  const linkToDetail = props.linkToDetail ?? true;
   //date
   const formatDate = new Date(t.createdAt).toLocaleDateString('fr-FR', {
         day: 'numeric',
@@ -43,26 +43,33 @@ export function TweetPreview(props: { tweet: Tweet }) {
         </button>
       )}
       
-      {/* affichage de l'image, ajout du link 02.4 */}
-      {t.image && (
-       <Link to={`/tweets/${t.id}`}>
+     {/* affichage de l'image, ajout du link 02.4 */}
+     {t.image && (
+        linkToDetail ? (
+          <Link to={`/tweets/${t.id}`}>
+            <img 
+              src={t.image.url} 
+              alt={t.image.alt} 
+              style={{ maxWidth: '100%', borderRadius: '6px', marginTop: '10px', display: 'block' }} 
+            />
+          </Link>
+        ) : (
           <img 
             src={t.image.url} 
             alt={t.image.alt} 
             style={{ maxWidth: '100%', borderRadius: '6px', marginTop: '10px', display: 'block' }} 
           />
-        </Link>
+        )
       )}
 
       <p style={{ fontSize: '0.85em', color: '#666' }}>{formatDate}</p>
 
       {/* lien vers la page de détail */}
-      <Link 
-        to={`/tweets/${t.id}`} 
-        style={{ color: '#1d9bf0', textDecoration: 'none', fontSize: '0.9em', fontWeight: 'bold', display: 'block' }}
-      >
-        Voir la discussion
-      </Link>
+      {linkToDetail && (
+        <Link to={`/tweets/${t.id}`} style={{ color: '#1d9bf0', textDecoration: 'none', fontSize: '0.9em', fontWeight: 'bold', display: 'block' }}>
+          Voir la discussion
+        </Link>
+      )}
     
     </div>
     

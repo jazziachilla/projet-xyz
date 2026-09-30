@@ -31,11 +31,14 @@ export function TweetDetailsPage() {
       {/* Lien de retour vers le fil principal */}
       <p>
         <Link to="/" style={{ color: '#1d9bf0', textDecoration: 'none' }}>
-          ← Retour au fil
+          Retour au fil
         </Link>
       </p>
 
       <h2>Discussion</h2>
+
+      {/* affichage tweet principal */}
+      <TweetPreview tweet={tweet} linkToDetail={false} />
 
       <h3 style={{ marginTop: '30px' }}>Réponses</h3>
 
