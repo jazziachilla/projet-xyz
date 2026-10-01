@@ -1,14 +1,16 @@
 import { useParams, Link } from 'react-router-dom';
-import { initialTweets } from '../data/tweets';
 import { TweetPreview } from '../components/TweetPreview';
 import { TweetsList } from '../components/TweetsList';
+import { TweetsContext } from '../contexts/TweetsContext';
+import { useContext } from 'react';
 
 export function TweetDetailsPage() {
   // recup id 
   const { id } = useParams<{ id: string }>();
 
   // recherche tab statique du tweet principal qui correspond à cet id
-  const tweet = initialTweets.find((t) => t.id === id);
+  const { tweets } = useContext(TweetsContext)!;
+  const tweet = tweets.find((t) => t.id === id);
 
   // en cas d'erreur : pas id
   if (!tweet) {
@@ -23,7 +25,7 @@ export function TweetDetailsPage() {
   }
 
   // recherche réponses
-  const replies = initialTweets.filter((t) => t.parentId === id);
+  const replies = tweets.filter((t) => t.parentId === id);
 
   // affichage tweet principal
   return (
