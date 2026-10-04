@@ -40,19 +40,62 @@ export function TweetForm(props: TweetFormProps) {
     setContent('');
   };
 
-  return (
+
     //  {/* quand utilisateur valide formulaire, execute la fonction */}
-    <form onSubmit={handleSubmit}> 
+    return (
+    <form onSubmit={handleSubmit}
+      style={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        gap: '8px', 
+        border: '1px solid #ccc', 
+        padding: '15px', 
+        margin: '10px 0', 
+        borderRadius: '8px',
+        backgroundColor: '#fff'
+      }}
+    >
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        placeholder="Quoi de neuf ?" //twitter
+        placeholder="Quoi de neuf ?"
+        rows={2}
+        style={{ 
+          width: '100%', 
+          boxSizing: 'border-box', // Empêche le textarea de dépasser de sa boîte
+          padding: '10px', 
+          borderRadius: '6px', 
+          border: '1px solid #e1e4e8', 
+          fontSize: '14px',
+          fontFamily: 'inherit',
+          resize: 'none' 
+        }}
       />
-      <div>
-        {/* caractères restants affichage */}
-        <span>{charactersRemaining} caractères restants</span> 
-        {/* ajout du bouton, Disabled : isEmpty et isTooLong */}
-        <button type="submit" disabled={isDisabled}>
+
+      {/* Conteneur pour aligner le compteur à gauche et le bouton à droite */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+
+        {/* nb caractères restants */}
+        <span style={{ fontSize: '12px', color: '#57606a' }}>
+          {charactersRemaining} caractères restants
+        </span>
+
+        {/* ajout du bouton, Disabled : isEmpty et isTooLong*/}
+        <button 
+          type="submit" 
+          disabled={isDisabled} // Désactivé si le texte est vide ou trop long
+          style={{
+            // Si désactivé -> gris (#ccc), si actif -> bleu vif style Twitter/X (#1d9bf0)
+            backgroundColor: isDisabled ? '#e1e4e8' : '#1d9bf0', 
+            color: isDisabled ? '#8c959f' : 'white',
+            border: 'none',
+            padding: '6px 14px',
+            borderRadius: '16px', // Forme arrondie type "pillule"
+            fontSize: '13px',
+            fontWeight: '600',
+            cursor: isDisabled ? 'not-allowed' : 'pointer' // Change le curseur de la souris
+          }}
+        >
           Publier
         </button>
       </div>

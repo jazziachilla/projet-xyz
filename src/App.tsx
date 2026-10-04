@@ -8,12 +8,12 @@ import { TweetsContext, type TweetsContextValue } from './contexts/TweetsContext
 export function App() {
   const [tweets, setTweets] = useState<Array<Tweet>>(initialTweets);
 
-  // Fonction d'ajout d'un nouveau tweet
+  // fonction ajout d'un nouveau tweet
   const addTweet = (content: string): void => {
     const newTweet: Tweet = {
       id: crypto.randomUUID(),
-      author: "Vous",
-      username: "vous",
+      authorName: "Vous",
+      authorHandle: "vous",
       content: content,
       createdAt: new Date().toISOString(),
       likes: 0,
@@ -23,8 +23,25 @@ export function App() {
     setTweets((prevTweets) => [newTweet, ...prevTweets]);
   };
 
-  // On expose addTweet dans le contexte
-  const context: TweetsContextValue = { tweets, addTweet };
+  // fonction ajouter ou retirer un j'aime
+  const toggleLike = (id: string): void => {
+    setTweets((prevTweets) =>
+      prevTweets.map((tweet) => {
+        if (tweet.id === id) {
+          const newLikedByMe = !tweet.likedByMe;
+          return {
+            ...tweet,
+            likedByMe: newLikedByMe,
+            likes: newLikedByMe ? tweet.likes + 1 : tweet.likes - 1,
+          };
+        }
+        return tweet;
+      })
+    );
+  };
+
+  // addTweet et toggleLike dans le contexte
+  const context: TweetsContextValue = { tweets, addTweet, toggleLike };
 
   return (
     <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>

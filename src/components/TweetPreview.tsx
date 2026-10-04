@@ -2,8 +2,8 @@ import { useState } from 'react';
 import type { Tweet } from '../types/Tweet';
 import { Link } from 'react-router-dom'; 
 
-export function TweetPreview(props: { tweet: Tweet; linkToDetail?: boolean }) {
-  const t = props.tweet;``
+export function TweetPreview(props: { tweet: Tweet; linkToDetail?: boolean; onToggleLike: (id: string) => void }) {
+  const t = props.tweet;
   const linkToDetail = props.linkToDetail ?? true;
   //date
   const formatDate = new Date(t.createdAt).toLocaleDateString('fr-FR', {
@@ -63,6 +63,33 @@ export function TweetPreview(props: { tweet: Tweet; linkToDetail?: boolean }) {
       )}
 
       <p style={{ fontSize: '0.85em', color: '#666' }}>{formatDate}</p>
+
+      {/* Bouton Cœur, compteur et inscription J'aime */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', margin: '10px 0' }}>
+        <button
+          onClick={() => props.onToggleLike(t.id)}
+          style={{
+            background: 'none',
+            border: 'none',
+            color: t.likedByMe ? '#e52e62' : '#666',
+            cursor: 'pointer',
+            fontWeight: 'bold',
+            padding: '4px 0',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}
+        >
+          {/* Le cœur */}
+          <span style={{ fontSize: '1.2em' }}>{t.likedByMe ? '♥' : '♡'}</span>
+          
+          {/* Le nombre de likes au milieu */}
+          <span style={{ fontSize: '0.9em', color: '#666' }}>{t.likes}</span>
+          
+          {/* L'inscription */}
+          <span>{t.likedByMe ? 'Je n\'aime plus' : 'J\'aime'}</span>
+        </button>
+      </div>
 
       {/* lien vers la page de détail */}
       {linkToDetail && (

@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
 
 export function NotFoundPage() {
+  useDocumentTitle('Page introuvable');
   return (
     <div style={{ padding: '20px', textAlign: 'center' }}>
       <p>Page introuvable</p>

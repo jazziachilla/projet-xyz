@@ -3,14 +3,18 @@ import { TweetPreview } from '../components/TweetPreview';
 import { TweetsList } from '../components/TweetsList';
 import { TweetsContext } from '../contexts/TweetsContext';
 import { useContext } from 'react';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
 
 export function TweetDetailsPage() {
   // recup id 
   const { id } = useParams<{ id: string }>();
 
   // recherche tab statique du tweet principal qui correspond à cet id
-  const { tweets } = useContext(TweetsContext)!;
+  const { tweets, toggleLike } = useContext(TweetsContext)!;
   const tweet = tweets.find((t) => t.id === id);
+
+  // utilisation hook titre de la page
+  useDocumentTitle(tweet ? `Discussion de ${tweet.authorName}` : 'Tweet introuvable');
 
   // en cas d'erreur : pas id
   if (!tweet) {
@@ -40,13 +44,13 @@ export function TweetDetailsPage() {
       <h2>Discussion</h2>
 
       {/* affichage tweet principal */}
-      <TweetPreview tweet={tweet} linkToDetail={false} />
+      <TweetPreview tweet={tweet} linkToDetail={false} onToggleLike={toggleLike} />
 
       <h3 style={{ marginTop: '30px' }}>Réponses</h3>
 
       {/* si vide, afficher avec tweetlist ou un message */}
       {replies.length > 0 ? (
-        <TweetsList tweets={replies} />
+        <TweetsList tweets={replies} onToggleLike={toggleLike} />
       ) : (
         <p style={{ color: '#666', fontStyle: 'italic' }}>Aucune réponse pour le moment.</p>
       )}
