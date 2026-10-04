@@ -48,7 +48,7 @@ export function TweetForm(props: TweetFormProps) {
         display: 'flex', 
         flexDirection: 'column', 
         gap: '8px', 
-        border: '1px solid #ccc', 
+        border: `1px solid #e6e6e6`, 
         padding: '15px', 
         margin: '10px 0', 
         borderRadius: '8px',
@@ -65,7 +65,7 @@ export function TweetForm(props: TweetFormProps) {
           boxSizing: 'border-box', // Empêche le textarea de dépasser de sa boîte
           padding: '10px', 
           borderRadius: '6px', 
-          border: '1px solid #e1e4e8', 
+          border: `1px solid #e6e6e6`, 
           fontSize: '14px',
           fontFamily: 'inherit',
           resize: 'none' 
@@ -80,13 +80,12 @@ export function TweetForm(props: TweetFormProps) {
           {charactersRemaining} caractères restants
         </span>
 
-        {/* ajout du bouton, Disabled : isEmpty et isTooLong*/}
+        {/* ajout du bouton */}
         <button 
           type="submit" 
           disabled={isDisabled} // Désactivé si le texte est vide ou trop long
           style={{
-            // Si désactivé -> gris (#ccc), si actif -> bleu vif style Twitter/X (#1d9bf0)
-            backgroundColor: isDisabled ? '#e1e4e8' : '#1d9bf0', 
+            backgroundColor: isDisabled ? '#e6e6e6' : '#6ec7ea', 
             color: isDisabled ? '#8c959f' : 'white',
             border: 'none',
             padding: '6px 14px',

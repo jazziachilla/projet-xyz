@@ -45,8 +45,9 @@ export function App() {
 
   return (
     <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
-      <header style={{ marginBottom: '20px', borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>
-        <h1>Mon fil d'actualité</h1>
+      <header style={{ marginBottom: '20px', borderBottom: '1px solid #ccc', paddingBottom: '10px', display: 'flex', alignItems: 'center', gap: '15px' }}>
+       <img src="/favicon-96x96.png" alt="Logo de l'application XYZ" style={{ width: '40px', height: '40px' }} />
+        <h1 style={{ margin: 0 }}>Mon fil d'actualité</h1>
       </header>
       <TweetsContext.Provider value={context}>
         <Outlet />

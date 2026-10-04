@@ -7,6 +7,7 @@ import { useDocumentTitle } from '../hooks/useDocumentTitle';
 export function TweetsMasterPage() {
   useDocumentTitle('Accueil | XYZ ');
   const { tweets, addTweet, toggleLike } = useContext(TweetsContext)!;
+  const ParentsTweet = tweets.filter((t) => !t.parentId);
 
   return (
     <div>
@@ -15,7 +16,7 @@ export function TweetsMasterPage() {
 
       {/* liste les tweets existants */}
       <div>
-        {tweets.map((tweet) => (
+        {ParentsTweet.map((tweet) => (
           <TweetPreview key={tweet.id} tweet={tweet} onToggleLike={toggleLike} />
         ))}
       </div>

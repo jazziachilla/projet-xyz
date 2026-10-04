@@ -21,7 +21,7 @@ export function TweetDetailsPage() {
     return (
       <div style={{ padding: '20px', textAlign: 'center' }}>
         <p>Ce tweet n'existe pas.</p>
-        <Link to="/" style={{ color: '#1d9bf0', textDecoration: 'none', fontWeight: 'bold' }}>
+        <Link to="/" style={{ color: '#6ec7ea', textDecoration: 'none', fontWeight: 'bold' }}>
           ← Retour à l'accueil
         </Link>
       </div>
@@ -36,7 +36,7 @@ export function TweetDetailsPage() {
     <div style={{ padding: '20px' }}>
       {/* Lien de retour vers le fil principal */}
       <p>
-        <Link to="/" style={{ color: '#1d9bf0', textDecoration: 'none' }}>
+        <Link to="/" style={{ color: '#6ec7ea', textDecoration: 'none' }}>
           Retour au fil
         </Link>
       </p>

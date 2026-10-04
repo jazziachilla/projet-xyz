@@ -25,7 +25,7 @@ export function TweetPreview(props: { tweet: Tweet; linkToDetail?: boolean; onTo
     : t.content.slice(0, limite) + '...'; //decoupe le texte + ...
 
   return (
-    <div style={{ border: '1px solid #ccc', padding: '15px', margin: '10px 0', borderRadius: '8px' }}>
+    <div style={{ border: `1px solid #e6e6e6`, padding: '15px', margin: '10px 0', borderRadius: '8px' }}>
       <h3>{t.authorName} (@{t.authorHandle})</h3>
       
       {/* on affiche le texte du tweet */}
@@ -36,7 +36,7 @@ export function TweetPreview(props: { tweet: Tweet; linkToDetail?: boolean; onTo
         <button 
           //inverse la derniere valeur de l'interrupteur
           onClick={() => setIsExpanded((ancienneValeur) => !ancienneValeur)}
-          style={{ background: 'none', border: 'none', color: 'blue', cursor: 'pointer', padding: 0, marginBottom: '10px' }}
+          style={{ background: 'none', border: 'none', color: '#57606a', cursor: 'pointer', padding: 0, marginBottom: '10px' }}
         >
           {/* si ouvert, on affiche voir moins, sinon voir plus */}
           {isExpanded ? 'Voir moins' : 'Voir plus'}
@@ -62,16 +62,17 @@ export function TweetPreview(props: { tweet: Tweet; linkToDetail?: boolean; onTo
         )
       )}
 
-      <p style={{ fontSize: '0.85em', color: '#666' }}>{formatDate}</p>
+      {/* date  */}
+      <p style={{ fontSize: '0.85em', color: '#000000' }}>{formatDate}</p>
 
-      {/* Bouton Cœur, compteur et inscription J'aime */}
+      {/* bouton like + compteur et inscription J'aime */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px', margin: '10px 0' }}>
         <button
           onClick={() => props.onToggleLike(t.id)}
           style={{
             background: 'none',
             border: 'none',
-            color: t.likedByMe ? '#e52e62' : '#666',
+            color: t.likedByMe ? '#e52e62' : '#000000',
             cursor: 'pointer',
             fontWeight: 'bold',
             padding: '4px 0',
@@ -80,20 +81,20 @@ export function TweetPreview(props: { tweet: Tweet; linkToDetail?: boolean; onTo
             gap: '8px'
           }}
         >
-          {/* Le cœur */}
-          <span style={{ fontSize: '1.2em' }}>{t.likedByMe ? '♥' : '♡'}</span>
+          {/* cœur : noir si non liké, rose/magenta si liké */}
+          <span style={{ fontSize: '1.2em', color: t.likedByMe ? '#ff4370' : '#000000' }}>{t.likedByMe ? '♥' : '♡'}</span>
           
-          {/* Le nombre de likes au milieu */}
-          <span style={{ fontSize: '0.9em', color: '#666' }}>{t.likes}</span>
+          {/* Le nombre de likes au milieu en noir */}
+          <span style={{ fontSize: '0.9em', color: '#000000' }}>{t.likes}</span>
           
-          {/* L'inscription */}
+          {/* L'inscription J'aime / Je n'aime plus en noir */}
           <span>{t.likedByMe ? 'Je n\'aime plus' : 'J\'aime'}</span>
         </button>
       </div>
 
-      {/* lien vers la page de détail */}
+      {/* lien vers la page de détails */}
       {linkToDetail && (
-        <Link to={`/tweets/${t.id}`} style={{ color: '#1d9bf0', textDecoration: 'none', fontSize: '0.9em', fontWeight: 'bold', display: 'block' }}>
+        <Link to={`/tweets/${t.id}`} style={{ color: '#000000', textDecoration: 'none', fontSize: '0.9em', fontWeight: 'bold', display: 'block' }}>
           Voir la discussion
         </Link>
       )}
